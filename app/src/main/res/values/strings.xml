@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">GeoQuiz</string>
+    <string name="question_text">Taipei is the capital of Taiwan</string>
 </resources>
