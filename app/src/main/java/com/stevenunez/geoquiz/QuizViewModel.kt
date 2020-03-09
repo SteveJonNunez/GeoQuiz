@@ -19,7 +19,7 @@ class QuizViewModel : ViewModel() {
     val currentQuestionAnswer: Boolean
         get() = questionList[currentQuestionIndex].answer
 
-    val currentQuestionText: Int
+    val currentQuestionTextId: Int
         get() = questionList[currentQuestionIndex].textResId
 
     fun moveToNext() {

@@ -7,7 +7,6 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 
 class MainActivity : AppCompatActivity() {
@@ -18,15 +17,15 @@ class MainActivity : AppCompatActivity() {
     private lateinit var nextButton: Button
     private lateinit var questionTextView: TextView
 
+    private val quizViewModel: QuizViewModel by lazy {
+        ViewModelProviders.of(this).get(QuizViewModel::class.java)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d(TAG, "onCreate(Bundle?) called")
 
         setContentView(R.layout.activity_main)
-
-        val provider: ViewModelProvider = ViewModelProviders.of(this)
-        val quizViewModel = provider.get(QuizViewModel::class.java)
-        Log.d(TAG, "Got a QuizViewModel: $quizViewModel")
 
         trueButton = findViewById(R.id.true_button)
         falseButton = findViewById(R.id.false_button)
@@ -72,7 +71,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun checkAnswer(userAnswer: Boolean) {
-        val correctAnswer = questionList[currentQuestionIndex].answer
+        val correctAnswer = quizViewModel.currentQuestionAnswer
 
         val messageResourceId =
             if (userAnswer == correctAnswer)
@@ -84,12 +83,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun nextQuestion() {
-        currentQuestionIndex = (currentQuestionIndex + 1) % questionList.size
+        quizViewModel.moveToNext()
         setQuestion()
     }
 
     private fun setQuestion() {
-        val questionTextResourceId = questionList[currentQuestionIndex].textResId
+        val questionTextResourceId = quizViewModel.currentQuestionTextId
         questionTextView.setText(questionTextResourceId)
     }
 }
