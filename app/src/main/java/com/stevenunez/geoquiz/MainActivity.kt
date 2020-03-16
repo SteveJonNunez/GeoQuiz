@@ -1,5 +1,6 @@
 package com.stevenunez.geoquiz
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -98,7 +99,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun cheat() {
-
+        val intent = Intent(this, CheatActivity::class.java)
+        startActivity(intent)
     }
 
     private fun nextQuestion() {
