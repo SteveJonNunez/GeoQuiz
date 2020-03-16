@@ -100,7 +100,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun cheat() {
-        val intent = Intent(this, CheatActivity::class.java)
+        val intent = CheatActivity.newIntent(this@MainActivity, quizViewModel.currentQuestionAnswer)
         startActivity(intent)
     }
 
