@@ -1,6 +1,5 @@
 package com.stevenunez.geoquiz
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -12,6 +11,7 @@ import androidx.lifecycle.ViewModelProviders
 
 private const val TAG = "MainActivity"
 private const val KEY_INDEX = "index"
+private const val REQUEST_CODE_CHEAT = 0
 
 class MainActivity : AppCompatActivity() {
 
@@ -101,7 +101,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun cheat() {
         val intent = CheatActivity.newIntent(this@MainActivity, quizViewModel.currentQuestionAnswer)
-        startActivity(intent)
+        startActivityForResult(intent, REQUEST_CODE_CHEAT)
     }
 
     private fun nextQuestion() {
