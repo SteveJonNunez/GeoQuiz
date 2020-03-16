@@ -1,7 +1,9 @@
 package com.stevenunez.geoquiz
 
 import android.app.Activity
+import android.app.ActivityOptions
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -52,7 +54,7 @@ class MainActivity : AppCompatActivity() {
             nextQuestion()
         }
         cheatButton.setOnClickListener { view: View ->
-            cheat()
+            cheat(view)
         }
 
         setQuestion()
@@ -113,9 +115,16 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText(this, messageResourceId, Toast.LENGTH_SHORT).show()
     }
 
-    private fun cheat() {
+    private fun cheat(view: View) {
         val intent = CheatActivity.newIntent(this@MainActivity, quizViewModel.currentQuestionAnswer)
-        startActivityForResult(intent, REQUEST_CODE_CHEAT)
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val options =
+                ActivityOptions.makeClipRevealAnimation(view, 0, 0, view.width, view.height)
+            startActivityForResult(intent, REQUEST_CODE_CHEAT, options.toBundle())
+        } else {
+            startActivityForResult(intent, REQUEST_CODE_CHEAT)
+
+        }
     }
 
     private fun nextQuestion() {
