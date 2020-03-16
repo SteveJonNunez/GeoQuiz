@@ -10,9 +10,10 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 
+private const val TAG = "MainActivity"
+private const val KEY_INDEX = "index"
+
 class MainActivity : AppCompatActivity() {
-    private val TAG = "MainActivity"
-    private val KEY_INDEX = "index"
 
     private lateinit var trueButton: Button
     private lateinit var falseButton: Button
