@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
 private const val EXTRA_ANSWER_IS_TRUE = "com.stevenunez.geoquiz.answer_is_true"
-private const val EXTRA_ANSWER_SHOWN = "com.bignerdranch.android.geoquiz.answer_shown"
+const val EXTRA_ANSWER_SHOWN = "com.bignerdranch.android.geoquiz.answer_shown"
 
 class CheatActivity : AppCompatActivity() {
     private lateinit var answerTextView: TextView

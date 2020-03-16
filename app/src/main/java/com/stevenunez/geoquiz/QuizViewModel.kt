@@ -1,6 +1,5 @@
 package com.stevenunez.geoquiz
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 
 class QuizViewModel : ViewModel() {
@@ -15,6 +14,7 @@ class QuizViewModel : ViewModel() {
     )
 
     var currentQuestionIndex = 0
+    var isCheater = false
 
     val currentQuestionAnswer: Boolean
         get() = questionList[currentQuestionIndex].answer

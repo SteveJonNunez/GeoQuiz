@@ -1,5 +1,7 @@
 package com.stevenunez.geoquiz
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -56,6 +58,17 @@ class MainActivity : AppCompatActivity() {
         setQuestion()
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode != Activity.RESULT_OK)
+            return
+
+        if (requestCode == REQUEST_CODE_CHEAT) {
+            quizViewModel.isCheater = data?.getBooleanExtra(EXTRA_ANSWER_SHOWN, false) ?: false
+        }
+    }
+
     override fun onStart() {
         super.onStart()
         Log.d(TAG, "onStart() called")
@@ -90,11 +103,12 @@ class MainActivity : AppCompatActivity() {
     private fun checkAnswer(userAnswer: Boolean) {
         val correctAnswer = quizViewModel.currentQuestionAnswer
 
-        val messageResourceId =
-            if (userAnswer == correctAnswer)
-                R.string.correct_toast
-            else
-                R.string.incorrect_toast
+        val messageResourceId = when {
+            quizViewModel.isCheater -> R.string.judgement_toast
+            userAnswer == correctAnswer -> R.string.correct_toast
+            else -> R.string.incorrect_toast
+        }
+
 
         Toast.makeText(this, messageResourceId, Toast.LENGTH_SHORT).show()
     }
